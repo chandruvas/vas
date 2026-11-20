@@ -1,1 +1,204 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VAS Solicitors Christmas Email Signature</title><style>body{font:14px Arial,sans-serif;background:#f1f3f5;margin:0;padding:24px;color:#243746}.wrap{max-width:900px;margin:auto}.panel{background:white;padding:20px;border-radius:10px;box-shadow:0 2px 12px #0001}.hint{color:#596875;font-size:13px;line-height:1.5}iframe{width:100%;height:1050px;border:1px solid #ddd;background:white}button{background:#075b87;color:white;border:0;border-radius:5px;padding:10px 16px;font-weight:bold;cursor:pointer;margin:8px 8px 12px 0}</style></head><body><div class="wrap"><div class="panel"><h2>VAS Solicitors — Christmas Signature 2026</h2><p class="hint">Preview the email-safe signature below. Use the supplied accreditation image files in the assets folder to replace the four accreditation placeholders. Social links are already connected to the official profile URLs supplied.</p><button id="copy">Copy signature HTML</button><button id="open">Open signature file</button><div id="status" class="hint" aria-live="polite"></div><iframe id="frame" title="Signature preview" src="signature.html"></iframe></div></div><script>document.getElementById('copy').addEventListener('click',async()=>{try{const r=await fetch('signature.html');const h=await r.text();await navigator.clipboard.writeText(h);document.getElementById('status').textContent='HTML source copied. For Outlook, use an HTML-signature installation method; pasting source text directly will not render it.'}catch(e){document.getElementById('status').textContent='Clipboard access unavailable. Open signature.html and copy its source manually.'}});document.getElementById('open').addEventListener('click',()=>window.open('signature.html','_blank'));</script></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>VAS Solicitors Christmas Email Signature</title>
+    <style>
+      body {
+        font:
+          14px Arial,
+          sans-serif;
+        background: #f1f3f5;
+        margin: 0;
+        padding: 24px;
+        color: #243746;
+      }
+      .wrap {
+        max-width: 900px;
+        margin: auto;
+      }
+      .panel {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 12px #0001;
+      }
+      .hint {
+        color: #596875;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      iframe {
+        width: 100%;
+        height: 1050px;
+        border: 1px solid #ddd;
+        background: white;
+      }
+      button {
+        background: #075b87;
+        color: white;
+        border: 0;
+        border-radius: 5px;
+        padding: 10px 16px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 8px 8px 12px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="panel">
+        <h2>VAS Solicitors — Christmas Signature 2026</h2>
+        <p class="hint">
+            Click the button below to copy your formatted VAS email signature.
+            Then open Outlook, go to your signature settings and press CTRL + V.
+        </p>
+        <button id="copy">Copy Formatted Signature</button>
+        <button id="open">Open signature file</button>
+        <div id="status" class="hint" aria-live="polite"></div>
+        <iframe
+          id="frame"
+          title="Signature preview"
+          src="signature.html"
+        ></iframe>
+        <div class="instructions">
+
+    <h2>How to Install Your VAS Email Signature</h2>
+
+    <h3>New Outlook</h3>
+
+    <ol>
+        <li>Open Outlook.</li>
+        <li>Click Settings (gear icon).</li>
+        <li>Select Accounts → Signatures.</li>
+        <li>Create a new signature.</li>
+        <li>Enter a name for your signature.</li>
+        <li>Click inside the signature editor.</li>
+        <li>Press CTRL + V to paste your copied signature.</li>
+        <li>Save your changes.</li>
+    </ol>
+
+    <h3>Classic Outlook</h3>
+
+    <ol>
+        <li>Open Outlook.</li>
+        <li>Select File → Options → Mail → Signatures.</li>
+        <li>Click New and enter a signature name.</li>
+        <li>Click inside the Edit Signature box.</li>
+        <li>Press CTRL + V.</li>
+        <li>Click Save and then OK.</li>
+    </ol>
+
+    <h3>Outlook on the Web</h3>
+
+    <ol>
+        <li>Open Outlook in your browser.</li>
+        <li>Go to Settings.</li>
+        <li>Find Accounts → Signatures or Mail → Compose and reply.</li>
+        <li>Create a new signature.</li>
+        <li>Click inside the editor and press CTRL + V.</li>
+        <li>Save your changes.</li>
+    </ol>
+
+</div>
+      </div>
+    </div>
+    <script>
+      
+document.getElementById('copy').addEventListener('click', async () => {
+
+    const status = document.getElementById('status');
+
+    try {
+
+        // Load the signature HTML file
+        const response = await fetch('signature.html');
+
+        if (!response.ok) {
+            throw new Error('Signature file could not be loaded.');
+        }
+
+        const source = await response.text();
+
+        // Read the HTML document
+        const doc = new DOMParser().parseFromString(source, 'text/html');
+
+        // Select the actual signature content
+        const signature = doc.body.firstElementChild || doc.body;
+
+        // Remove page-only elements
+        signature.querySelectorAll('script, style, link, meta, title')
+            .forEach(el => el.remove());
+
+        // Convert image paths to full GitHub Pages URLs
+        signature.querySelectorAll('img[src]').forEach(img => {
+
+            img.src = new URL(
+                img.getAttribute('src'),
+                new URL('signature.html', location.href)
+            ).href;
+
+        });
+
+        // Convert relative links to full URLs
+        signature.querySelectorAll('a[href]').forEach(link => {
+
+            const href = link.getAttribute('href');
+
+            if (href && !/^(https?:|mailto:|tel:|#)/i.test(href)) {
+                link.href = new URL(
+                    href,
+                    new URL('signature.html', location.href)
+                ).href;
+            }
+
+        });
+
+        // Prepare formatted HTML and plain text
+        const html = signature.outerHTML;
+
+        const plainText = signature.innerText ||
+                          signature.textContent;
+
+        // Copy formatted signature
+        const clipboardItem = new ClipboardItem({
+
+            'text/html': new Blob(
+                [html],
+                { type: 'text/html' }
+            ),
+
+            'text/plain': new Blob(
+                [plainText],
+                { type: 'text/plain' }
+            )
+
+        });
+
+        await navigator.clipboard.write([clipboardItem]);
+
+        status.innerHTML =
+            'Signature copied successfully! Open Outlook, click inside the signature editor and press CTRL + V.';
+
+    }
+
+    catch (error) {
+
+        status.textContent =
+            'Copy failed: ' + error.message +
+            ' Please try opening the signature separately.';
+
+    }
+
+});
+
+      document
+        .getElementById("open")
+        .addEventListener("click", () =>
+          window.open("signature.html", "_blank"),
+        );
+    </script>
+  </body>
+</html>
